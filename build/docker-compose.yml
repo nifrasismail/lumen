@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    container_name: luman-web
+    image: luman-web
+    build:
+      context: web
+    ports:
+    - "80:80"
+  db:
+    container_name: luman-db
+    image: mysql:5.6
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: luman
+      MYSQL_USER: luman
+      MYSQL_PASSWORD: luman

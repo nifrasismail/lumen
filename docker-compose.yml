@@ -1,0 +1,55 @@
+version: '2'
+
+services:
+  web:
+    container_name: lumen-web
+    build:
+      context: web-base
+    image: lumen-web
+    volumes:
+      - ./src:/var/www
+    environment:
+      - XDEBUG_ENABLED=true
+      - SERVER_NAME=lumen.local
+      - CRON_ENABLED=true
+      - VERBOSE=true
+      - ENV=dev
+      - OPCACHE_ENABLED=true
+      - CRON_ENABLED=false
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.frontend.rule=Host:lumen.local"
+      - "traefik.protocol=http"
+      - "traefik.port=80"
+      - "traefik.backend=lumen-web"
+    networks:
+      - web
+      - internal
+    expose:
+      - 80
+  db:
+    container_name: lumen-db
+    image: mysql:5.7
+    volumes:
+      - ./storage/db:/var/lib/mysql
+      - ./storage/dumps:/docker-entrypoint-initdb.d
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: lumen
+      MYSQL_USER: lumen_user
+      MYSQL_PASSWORD: lumen_pass
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - internal
+
+networks:
+  web:
+    external:
+      name: web
+  internal:
+    driver: bridge

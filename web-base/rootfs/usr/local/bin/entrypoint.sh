@@ -85,12 +85,8 @@ initSupervisor() {
 
 # add cron
 initCron() {
-    if [[ ! -z ${CRON_ENABLED} ]] && [[ ${#CRON_ENABLED} -gt 0 ]] && [[ ${CRON_ENABLED} != "false" ]] && [[ ${CRON_ENABLED} != "0" ]]; then
-
-        info "Cron enabled"
-    else
-        info "Cron Disabled"
-    fi
+    echo "* * * * * sudo -u www-data php -d memory_limit=-1  /var/www/artisan schedule:run 1>> /dev/null 2>&1" | crontab -u root -
+    info "Cron enabled"
 }
 
 initApp() {

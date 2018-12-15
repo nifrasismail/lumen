@@ -31,16 +31,18 @@ class MyApiRoutes extends Command
         $headers = ['method', 'uri', 'uses', 'name', 'middleware'];
         $body = [];
         foreach($app->router->getRoutes() as $route){
-            $body[] = [
-                $route['method'],
-                $route['uri'],
-                $route['action']['uses'],
-                $route['action']['as'],
-                implode(',',$route['action']['middleware'])
-                ];
-        };
+            $body[] = $this->getRouteData($route);
+        }
         $this->table($headers,$body);
     }
 
-
+    protected function getRouteData($route){
+        return [
+            !empty($route['method']) ? $route['method'] : 'undefined',
+            !empty($route['uri']) ? $route['uri'] : 'undefined',
+            !empty($route['action']['uses']) ? $route['action']['uses'] : 'undefined',
+            !empty($route['action']['as']) ? $route['action']['as'] : 'undefined',
+            !empty($route['action']['middleware']) ? implode(',',$route['action']['middleware']) : 'undefined',
+        ];
+    }
 }

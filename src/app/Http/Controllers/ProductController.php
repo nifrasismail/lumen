@@ -21,7 +21,6 @@ class ProductController extends Controller
     }
 
     public function getProductById($id){
-        $res = !empty(Product::find($id)) ? Product::find($id): ['error' => 'Requested Product not found'];
-        return response()->json($res,404);
+        return response()->json(Product::findOrFail($id));
     }
 }

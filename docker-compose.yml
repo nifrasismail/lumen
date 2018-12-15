@@ -10,7 +10,7 @@ services:
       - ./src:/var/www
     environment:
       - XDEBUG_ENABLED=true
-      - SERVER_NAME=lumen.local
+      - SERVER_NAME=api.lumen.local
       - CRON_ENABLED=true
       - VERBOSE=true
       - ENV=dev
@@ -19,7 +19,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.frontend.rule=Host:lumen.local"
+      - "traefik.frontend.rule=Host:api.lumen.local"
       - "traefik.protocol=http"
       - "traefik.port=80"
       - "traefik.backend=lumen-web"

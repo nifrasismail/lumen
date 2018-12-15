@@ -27,14 +27,20 @@ class MyApiRoutes extends Command
      */
     public function handle()
     {
-        $this->table(
-            [
-                'name',
-                'route'
-            ],
-            [
-                ['get_all_products', route('get_all_products')],
-                ['get_product_by_id', route('get_product_by_id')]
-            ]);
+        global $app;
+        $headers = ['method', 'uri', 'uses', 'name', 'middleware'];
+        $body = [];
+        foreach($app->router->getRoutes() as $route){
+            $body[] = [
+                $route['method'],
+                $route['uri'],
+                $route['action']['uses'],
+                $route['action']['as'],
+                implode(',',$route['action']['middleware'])
+                ];
+        };
+        $this->table($headers,$body);
     }
+
+
 }

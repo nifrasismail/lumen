@@ -12,10 +12,12 @@
 */
 
 $router->get('/', function () use ($router) {
+    $url = route('get_product_by_id');
+    return $url;
     return $router->app->version();
 });
 
 $router->group(['prefix' => 'v1'], function () use ($router) {
-    $router->get('products',  ['uses' => 'ProductController@getAllProducts']);
-    $router->get('product/{id}',  ['uses' => 'ProductController@getProductById']);
+    $router->get('products',  ['uses' => 'ProductController@getAllProducts', 'as' => 'get_all_products']);
+    $router->get('product/{id}',  ['uses' => 'ProductController@getProductById', 'as' => 'get_product_by_id']);
 });

@@ -53,5 +53,6 @@ class Handler extends ExceptionHandler
                 'request' => $request->getRequestUri(),
                 'message' => $exception->getMessage()
             ]
-        ]);    }
+        ], $rendered->getStatusCode());
+    }
 }

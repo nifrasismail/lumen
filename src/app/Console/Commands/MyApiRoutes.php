@@ -4,6 +4,10 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+/**
+ * Class MyApiRoutes
+ * @package App\Console\Commands
+ */
 class MyApiRoutes extends Command
 {
     /**
@@ -30,19 +34,24 @@ class MyApiRoutes extends Command
         global $app;
         $headers = ['method', 'uri', 'uses', 'name', 'middleware'];
         $body = [];
-        foreach($app->router->getRoutes() as $route){
+        foreach ($app->router->getRoutes() as $route) {
             $body[] = $this->getRouteData($route);
         }
-        $this->table($headers,$body);
+        $this->table($headers, $body);
     }
 
-    protected function getRouteData($route){
+    /**
+     * @param $route
+     * @return array
+     */
+    protected function getRouteData($route)
+    {
         return [
             !empty($route['method']) ? $route['method'] : 'undefined',
             !empty($route['uri']) ? $route['uri'] : 'undefined',
             !empty($route['action']['uses']) ? $route['action']['uses'] : 'undefined',
             !empty($route['action']['as']) ? $route['action']['as'] : 'undefined',
-            !empty($route['action']['middleware']) ? implode(',',$route['action']['middleware']) : 'undefined',
+            !empty($route['action']['middleware']) ? implode(',', $route['action']['middleware']) : 'undefined',
         ];
     }
 }

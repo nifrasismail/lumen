@@ -97,32 +97,6 @@ initApp() {
         sudo -u www-data php -d memory_limit=-1 /usr/local/bin/composer install
     fi
 
-
-    ENV_FILE="/var/www/.env"
-    if [[ ! -e $ENV_FILE ]]; then
-
-        touch $ENV_FILE
-
-        echo "APP_ENV=dev" >> $ENV_FILE
-        echo "APP_DEBUG=true" >> $ENV_FILE
-        echo "APP_KEY=HwkWfqpX6wmSkj428jK79wscpvhkdPGg" >> $ENV_FILE
-        echo "APP_TIMEZONE=UTC" >> $ENV_FILE
-        echo "LOG_CHANNEL=stack" >> $ENV_FILE
-        echo "LOG_SLACK_WEBHOOK_URL=" >> $ENV_FILE
-        echo "DB_CONNECTION=mysql" >> $ENV_FILE
-        echo "DB_HOST=lumen-db" >> $ENV_FILE
-        echo "DB_PORT=3306" >> $ENV_FILE
-        echo "DB_DATABASE=lumen" >> $ENV_FILE
-        echo "DB_USERNAME=lumen_user" >> $ENV_FILE
-        echo "DB_PASSWORD=lumen_pass" >> $ENV_FILE
-        echo "CACHE_DRIVER=file" >> $ENV_FILE
-        echo "QUEUE_DRIVER=sync" >> $ENV_FILE
-
-        info ".env file created"
-    else
-        info ".env file already exist"
-    fi
-
     chown -Rf www-data:www-data /var/www
 
     /var/www/artisan  migrate

@@ -17,7 +17,7 @@ class ProductController extends Controller
     }
 
     public function getAllProducts(){
-        return response()->json(Product::paginate(100));
+        return response()->json(Product::paginate(env('PAGINATION_LIMIT', 100)));
     }
 
     public function getProductById($id){

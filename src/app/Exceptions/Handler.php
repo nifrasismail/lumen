@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Jobs\SlackNotification;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +47,18 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         $rendered = parent::render($request, $exception);
+
+        if (env('SLACK_NOTIFICATION_ENABLE'))
+            dispatch(
+                new SlackNotification(
+                    $exception->getMessage(),
+                    [
+                        'url' => $request->getUri(),
+                        'status' => $rendered->getStatusCode(),
+                        'env' => env('APP_URL')
+                    ]
+                )
+            );
 
         return response()->json([
             'error' => [

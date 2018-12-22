@@ -11,7 +11,5 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'sku', 'name', 'price' ,'description'
-    ];
+    protected $guarded = [];
 }

@@ -24,6 +24,9 @@ class ProductController extends Controller
         return response()->json(Product::all()->map->name);
     }
 
+    /*
+     * @todo route model binding
+     * */
     public function getProductById($id){
         return response()->json(Product::findOrFail($id));
     }

@@ -13,6 +13,6 @@
 
 $router->group(['middleware' => 'auth', 'prefix' => 'v1'], function () use ($router) {
     $router->get('products',  ['uses' => 'ProductController@getAllProducts', 'as' => 'get_all_products']);
-    $router->get('products/name',  ['uses' => 'ProductController@getAllProductsName', 'as' => 'get_all_product_name']);
-    $router->get('product/id/{id}',  ['uses' => 'ProductController@getProductById', 'as' => 'get_product_by_id']);
+    $router->get('products/name',  ['uses' => 'ProductController@getAllProductsName', 'as' => 'get_all_products_name']);
+    $router->get('products/{id}',  ['uses' => 'ProductController@getProductById', 'as' => 'get_products_by_id']);
 });

@@ -36,7 +36,7 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        JWT::decode($request->get('jwt'), env('PUBLIC_KEY'), array('HS256'));
+        #JWT::decode($request->get('jwt'), env('PUBLIC_KEY'), array('HS256'));
         return $next($request);
     }
 }

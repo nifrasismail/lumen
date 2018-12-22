@@ -20,6 +20,10 @@ class ProductController extends Controller
         return response()->json(Product::paginate(env('PAGINATION_LIMIT', 100)));
     }
 
+    public function getAllProductsName(){
+        return response()->json(Product::all()->map->name);
+    }
+
     public function getProductById($id){
         return response()->json(Product::findOrFail($id));
     }

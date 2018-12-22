@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -29,5 +30,32 @@ class ProductController extends Controller
      * */
     public function getProductById($id){
         return response()->json(Product::findOrFail($id));
+    }
+
+    public function create(Request $request){
+
+        $product  = new Product(
+            $this->validate($request, [
+                'name' => 'required',
+                'sku' => 'required',
+                'price' => 'required',
+                'description' => 'required',
+                'special_price' => 'required'
+            ])
+        );
+        $product->save();
+        return response('Created Successfully');
+    }
+
+    public function update($id, Request $request){
+        $product = Product::findOrFail($id);
+        $product->update($request->all());
+        return response('Update Successfully');
+    }
+
+    public function delete($id)
+    {
+        Product::findOrFail($id)->delete();
+        return response('Deleted Successfully');
     }
 }

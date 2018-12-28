@@ -1,6 +1,6 @@
 <?php
 
-$factory->define(App\Product::class, function (Faker\Generator $faker) {
+$factory->define(App\Model\Product::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'sku' => $faker->unique()->randomNumber(5),

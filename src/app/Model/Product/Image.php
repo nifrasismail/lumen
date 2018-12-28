@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Model\Product;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Image extends Model
 {
     /**
      * The attributes that are mass assignable.

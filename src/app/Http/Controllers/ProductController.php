@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Model\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -21,15 +21,11 @@ class ProductController extends Controller
         return response()->json(Product::paginate(env('PAGINATION_LIMIT', 100)));
     }
 
-    public function getAllProductsName(){
-        return response()->json(Product::all()->map->name);
-    }
-
     /*
      * @todo route model binding
      * */
     public function getProductById($id){
-        return response()->json(Product::findOrFail($id));
+        return response()->json(Product::with(['images'])->findOrFail($id));
     }
 
     public function create(Request $request){

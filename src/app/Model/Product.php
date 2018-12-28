@@ -12,7 +12,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'updated_at', 'updated_at'];
 
     protected $with = ['images'];
 
@@ -35,5 +35,12 @@ class Product extends Model
     public function getProductById($id)
     {
         return $this->with($this->with)->findOrFail($id);
+    }
+
+    public function addNew($data)
+    {
+        $product =  $this->create($data['product']);
+        $product->images()->createMany($data['images']);
+        return $product->fresh();
     }
 }

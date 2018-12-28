@@ -11,5 +11,10 @@ class Image extends Model
      *
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'updated_at', 'updated_at'];
+
+    public function images()
+    {
+        return $this->with($this->with)->paginate(env('PAGINATION_LIMIT', 100));
+    }
 }

@@ -46,6 +46,21 @@ class ProductController extends Controller
         return response()->json($this->product->product($id)->delete());
     }
 
+    public function create(Request $request)
+    {
+        $data['product'] = $this->validateProductRequest($request);
+        $data['images'] = $this->validateImageRequest($request);
+        $product =  $this->product->create($data['product']);
+        $product->images()->createMany($data['images']);
+        return $product->fresh();
+    }
+
+    public function update($id, Request $request)
+    {
+        $data = $this->validateProductRequest($request);
+        return response()->json($this->product->product($id)->update($data));
+    }
+
     public function validateImageRequest($request)
     {
         return $this->validate($request, [
@@ -63,18 +78,5 @@ class ProductController extends Controller
             'description' => 'required',
             'special_price' => 'nullable'
         ]);
-    }
-
-    public function create(Request $request)
-    {
-        $data['product'] = $this->validateProductRequest($request);
-        $data['images'] = $this->validateImageRequest($request);
-        return  $this->product->addNew($data);
-    }
-
-    public function update($id, Request $request)
-    {
-        $data = $this->validateProductRequest($request);
-        return response()->json($this->product->product($id)->update($data));
     }
 }

@@ -11,38 +11,73 @@
 |
 */
 
-$router->group(['middleware' => 'auth', 'prefix' => 'v1'], function () use ($router) {
+$router->group(['middleware' => 'auth', 'prefix' => 'v1/products'], function () use ($router) {
     $router->get(
-        'products',
+        '/',
         [
             'uses' => 'ProductController@getAllProducts',
             'as' => 'products'
         ]
     );
     $router->get(
-        'products/{id}',
+        '{id}',
         [
             'uses' => 'ProductController@getProductById',
-            'as' => 'products.by.id'
+            'as' => 'product'
         ]
     );
     $router->post(
-        'products',
+        '/',
         [
             'uses' => 'ProductController@create',
-            'as' => 'create.products']
+            'as' => 'create.product']
     );
     $router->patch(
-        'products/{id}',
+        '{id}',
         [
             'uses' => 'ProductController@update',
-            'as' => 'update.products']
+            'as' => 'update.product']
     );
     $router->delete(
-        'products/{id}',
+        '{id}',
         [
             'uses' => 'ProductController@delete',
-            'as' => 'delete.products'
+            'as' => 'delete.product'
+        ]
+    );
+    $router->get(
+        '{product_id}/images',
+        [
+            'uses' => 'Product\ImageController@getImages',
+            'as' => 'products.images'
+        ]
+    );
+    $router->get(
+        '{product_id}/images/{image_id}',
+        [
+            'uses' => 'Product\ImageController@getImage',
+            'as' => 'products.image'
+        ]
+    );
+    $router->post(
+        '{product_id}/images',
+        [
+            'uses' => 'Product\ImageController@create',
+            'as' => 'create.product.images'
+        ]
+    );
+    $router->patch(
+        '{product_id}/images',
+        [
+            'uses' => 'Product\ImageController@update',
+            'as' => 'update.product.images'
+        ]
+    );
+    $router->delete(
+        '{product_id}/images',
+        [
+            'uses' => 'Product\ImageController@delete',
+            'as' => 'delete.product.images'
         ]
     );
 });

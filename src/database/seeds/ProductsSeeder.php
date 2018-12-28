@@ -11,7 +11,7 @@ class ProductsSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Model\Product::class, 1000)->create()->each(function ($product){
+        factory(App\Model\Product::class, 1000)->create()->each(function ($product) {
             /** @var $product app\Model\Product */
             $product->images()->saveMany(factory(App\Model\Product\Image::class, 3)->make());
         });

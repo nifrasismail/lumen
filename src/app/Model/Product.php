@@ -16,39 +16,24 @@ class Product extends Model
 
     protected $with = ['images'];
 
-    protected $perPage = 100;
-
-    public function images(){
-
+    public function images()
+    {
         return $this->hasMany(Image::class);
-
     }
 
-    public function products(){
-
-        return $this->with($this->with)->all();
-
-    }
-
-    public function productsWithPaginate(){
-
+    public function products()
+    {
         return $this->with($this->with)->paginate(env('PAGINATION_LIMIT', 100));
-
     }
 
-    public function getProductById($id){
-
+    public function product($id)
+    {
         return $this->with($this->with)->findOrFail($id);
-
     }
 
-    public function getProductBySku($sku){
 
-        return $this->with($this->with)->where('sku', $sku)->get();
-
-    }
-
-    public function create(){
-
+    public function getProductById($id)
+    {
+        return $this->with($this->with)->findOrFail($id);
     }
 }

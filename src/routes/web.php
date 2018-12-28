@@ -12,9 +12,37 @@
 */
 
 $router->group(['middleware' => 'auth', 'prefix' => 'v1'], function () use ($router) {
-    $router->get('products',  ['uses' => 'ProductController@getAllProducts', 'as' => 'get_all_products']);
-    $router->get('products/{id}',  ['uses' => 'ProductController@getProductById', 'as' => 'get_products_by_id']);
-    $router->post('products',  ['uses' => 'ProductController@create', 'as' => 'create_products']);
-    $router->patch('products/{id}',  ['uses' => 'ProductController@update', 'as' => 'update_products']);
-    $router->delete('products/{id}',  ['uses' => 'ProductController@delete', 'as' => 'delete_products']);
+    $router->get(
+        'products',
+        [
+            'uses' => 'ProductController@getAllProducts',
+            'as' => 'products'
+        ]
+    );
+    $router->get(
+        'products/{id}',
+        [
+            'uses' => 'ProductController@getProductById',
+            'as' => 'products.by.id'
+        ]
+    );
+    $router->post(
+        'products',
+        [
+            'uses' => 'ProductController@create',
+            'as' => 'create.products']
+    );
+    $router->patch(
+        'products/{id}',
+        [
+            'uses' => 'ProductController@update',
+            'as' => 'update.products']
+    );
+    $router->delete(
+        'products/{id}',
+        [
+            'uses' => 'ProductController@delete',
+            'as' => 'delete.products'
+        ]
+    );
 });

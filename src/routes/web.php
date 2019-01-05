@@ -11,7 +11,7 @@
 |
 */
 
-$router->group(['middleware' => 'auth', 'prefix' => 'v1/products'], function () use ($router) {
+$router->group(['middleware' => 'authorization', 'prefix' => 'v1/products'], function () use ($router) {
     $router->get(
         '/',
         [

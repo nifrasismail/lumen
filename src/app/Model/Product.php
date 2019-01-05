@@ -17,8 +17,6 @@ class Product extends Model
      */
     protected $guarded = ['uuid', 'updated_at', 'updated_at'];
 
-    protected $with = ['images'];
-
     public function images()
     {
         return $this->hasMany(Image::class);

@@ -2,16 +2,19 @@
 
 namespace App\Model\Product;
 
+use App\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
+    use UsesUuid;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $guarded = ['id', 'updated_at', 'updated_at'];
+    protected $guarded = ['uuid', 'updated_at', 'updated_at'];
 
     public function images()
     {

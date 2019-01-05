@@ -30,10 +30,9 @@ class ProductController extends Controller
     }
 
 
-    public function getAllProducts()
+    public function getAllProducts(Request $request)
     {
-
-        return $this->product->products();
+        return $this->product->products($request->include);
     }
 
     public function getProductById($id)

@@ -14,7 +14,7 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->uuid('uuid');
+            $table->uuid('uuid')->unique();
             $table->string('sku')->unique();
             $table->string('name');
             $table->decimal('price');
